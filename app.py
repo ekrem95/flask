@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from lib.memcache import client
 
-from router.register import Register
-from router.login import Login
+from handlers.register import Register
+from handlers.login import Login
  
 app = Flask(__name__)
                 

@@ -1,7 +1,7 @@
 from flask import jsonify
 from json import loads
 from models.user import User
-from models.access_token import generate_access_token
+from models.access_token import generate_access_token, response
 from models.client import generate_client
 from .response import err_response
 
@@ -27,7 +27,10 @@ def Login(request):
             return err_response('Passwords do not match')
 
         client = generate_client()
-        print(generate_access_token(client_id=client['id'], user_id=id))
+        access_token = generate_access_token(client_id=client['id'], user_id=id)
+
+        response(str(id), client, access_token)
+        # return jwt
     except Exception as e:
         if str(e) == not_found_err:
             return err_response('User not found')

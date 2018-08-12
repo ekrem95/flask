@@ -2,7 +2,7 @@ import bcrypt
 from lib.psql import exec, query
 
 class User():
-    def __init__(self, name, password):
+    def __init__(self, name='', password=''):
         self.id = ''
         self.name = name
         self.password = self.generate_password(password)
@@ -18,3 +18,6 @@ class User():
 
     def find(self):
         return query('SELECT id, password FROM users WHERE name = %s;', (self.name,))
+
+    def findById(self, id):
+        return query('SELECT id, name FROM users WHERE id = %s;', (id,))

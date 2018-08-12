@@ -1,7 +1,7 @@
 from flask import jsonify
 from json import loads
 from models.user import User
-from models.access_token import generate_access_token, response
+from models.access_token import generate_access_token, sign_token
 from models.client import generate_client
 from .response import err_response
 
@@ -29,11 +29,10 @@ def Login(request):
         client = generate_client()
         access_token = generate_access_token(client_id=client['id'], user_id=id)
 
-        response(str(id), client, access_token)
-        # return jwt
+        encoded = sign_token(str(id), client, access_token)
+        
+        return jsonify({'access_token': encoded})
     except Exception as e:
         if str(e) == not_found_err:
             return err_response('User not found')
         return err_response(str(e))
-
-    return jsonify(data)

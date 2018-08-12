@@ -3,6 +3,7 @@ from lib.memcache import client
 
 from handlers.register import Register
 from handlers.login import Login
+from handlers.user_info import UserInfo
  
 app = Flask(__name__)
                 
@@ -12,12 +13,12 @@ def index():
     result = client.get('key')
     return jsonify(result)
 
-@app.route("/user", methods=['POST'])
+@app.route("/user", methods=['GET','POST'])
 def user():
+    if request.method == 'GET':
+        return UserInfo(request)
     if request.method == 'POST':
         return Register(request)
-
-    return '_'
 
 @app.route("/login", methods=['POST'])
 def login():

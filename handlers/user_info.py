@@ -17,7 +17,7 @@ def UserInfo(request):
         id, name = user.findById(id=user_id)
 
         return jsonify({
-            'id': id, name: 'name'
+            'id': id, 'name': name
         })
     except Exception as e:
         return err_response(str(e))

@@ -6,12 +6,6 @@ from handlers.login import Login
 from handlers.user_info import UserInfo
  
 app = Flask(__name__)
-                
-@app.route("/")
-def index():    
-    client.set('key', {'a':'b', 'c':'d'})
-    result = client.get('key')
-    return jsonify(result)
 
 @app.route("/user", methods=['GET','POST'])
 def user():
